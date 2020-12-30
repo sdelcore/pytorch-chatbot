@@ -22,6 +22,7 @@ from io import open
 import itertools
 import math
 
+TRAINING = True
 
 #USE_CUDA = torch.cuda.is_available()
 USE_CUDA = False
@@ -39,7 +40,7 @@ MAX_LENGTH = 15  # Maximum sentence length to consider
 save_dir = os.path.join("data", "save")
 MIN_COUNT = 3    # Minimum word count threshold for trimming
 
-TRAINING = True
+
 
 # Set checkpoint to load from; set to None if starting from scratch
 loadFilename = None
@@ -469,9 +470,9 @@ def trainIters(model_name, voc, pairs, encoder, decoder, encoder_optimizer, deco
         # Print progress
         if iteration % print_every == 0:
             print_loss_avg = print_loss / print_every
-            print("Iteration: {}; Percent complete: {:.1f}%; Average loss: {:.4f}; \nTime for {} iterations: {}; Est time: {}"\
+            print("Iteration: {}; Percent complete: {:.1f}%; Average loss: {:.4f}; \nTime for {} iterations: {}; Est time: {}m"\
                       .format(iteration, iteration / n_iteration * 100, print_loss_avg, 
-                              print_every, time.time()-_time, ((n_iteration-iteration)/print_every)*(time.time()-_time) ))
+                              print_every, time.time()-_time, (((n_iteration-iteration)/print_every)*(time.time()-_time))/60 ))
             print_loss = 0
             _time = time.time()
 
